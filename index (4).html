@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Máscaras Africanas — Proyecto de Investigación Digital</title>
+  <meta name="description" content="La influencia de las máscaras africanas en el arte y el cine actual. Proyecto de investigación BMTV-2C.">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #c8902e;
+      --gold-light: #e2b05a;
+      --earth-dark: #2a1f14;
+      --earth-mid: #4a3728;
+      --cream: #f5f0e8;
+      --cream-dark: #ebe4d8;
+      --text: #2c2218;
+      --text-muted: #7a6e60;
+      --terracotta: #a0522d;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(42,31,20,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(200,144,46,0.3);
+      padding: 14px 0;
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 20px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand { color: var(--gold); font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a { color: rgba(245,240,232,0.7); text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-group { color: var(--gold-light); font-size: 0.7rem; font-family: monospace; opacity: 0.7; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(rgba(42,31,20,0.65), rgba(42,31,20,0.75)),
+        url('https://loremflickr.com/1400/900/african,textile/all') center/cover no-repeat;
+      text-align: center; padding: 100px 20px;
+    }
+    .hero-content { max-width: 750px; }
+    .hero-tag { color: var(--gold); font-size: 0.8rem; letter-spacing: 6px; text-transform: uppercase; margin-bottom: 16px; }
+    .hero h1 { font-family: 'Playfair Display', serif; color: #f5f0e8; font-size: clamp(2.2rem, 5vw, 3.8rem); line-height: 1.2; margin-bottom: 20px; }
+    .hero h1 span { color: var(--gold); }
+    .hero p { color: rgba(245,240,232,0.7); font-size: 1.05rem; max-width: 550px; margin: 0 auto 30px; }
+    .btn {
+      display: inline-block; padding: 14px 36px; background: var(--gold); color: var(--earth-dark);
+      text-decoration: none; font-weight: 600; font-size: 0.9rem; letter-spacing: 2px;
+      transition: background 0.3s;
+    }
+    .btn:hover { background: var(--gold-light); }
+
+    /* SECTIONS */
+    section { padding: 80px 20px; }
+    .container { max-width: 1000px; margin: 0 auto; }
+    .section-tag { text-align: center; color: var(--gold); font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 6px; }
+    .section-title { text-align: center; font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.4rem); margin-bottom: 40px; }
+    .section-desc { text-align: center; color: var(--text-muted); max-width: 600px; margin: -20px auto 40px; }
+
+    .bg-alt { background: var(--cream-dark); }
+    .bg-dark { background: var(--earth-dark); color: #f5f0e8; }
+    .bg-dark .section-title { color: #f5f0e8; }
+    .bg-dark .text-muted { color: rgba(245,240,232,0.6); }
+
+    /* GRID */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+    .card {
+      background: var(--cream); border: 1px solid rgba(42,31,20,0.1);
+      padding: 28px; border-radius: 4px;
+    }
+    .card-dark {
+      background: rgba(245,240,232,0.06); border: 1px solid rgba(200,144,46,0.2);
+      padding: 28px; border-radius: 4px;
+    }
+    .card h3, .card-dark h3 { color: var(--gold); font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; }
+    .card p, .card-dark p { font-size: 0.9rem; line-height: 1.7; }
+    .card-dark p { color: rgba(245,240,232,0.65); }
+    .card-dark .origin { font-size: 0.75rem; color: rgba(245,240,232,0.4); font-style: italic; margin-bottom: 10px; }
+
+    /* FLEX LAYOUT */
+    .flex-row { display: flex; gap: 40px; align-items: center; }
+    .flex-row .col { flex: 1; }
+    .flex-row img { width: 100%; border-radius: 4px; box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
+
+    .mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+    .mini-card { background: rgba(245,240,232,0.06); border: 1px solid rgba(200,144,46,0.2); padding: 14px; border-radius: 4px; }
+    .mini-card h4 { color: var(--gold); font-size: 0.85rem; font-weight: 600; }
+    .mini-card p { font-size: 0.75rem; color: rgba(245,240,232,0.55); margin-top: 4px; }
+
+    /* METHOD BOX */
+    .method-box {
+      background: var(--earth-mid); padding: 32px; border-radius: 4px; margin-top: 24px;
+      color: rgba(245,240,232,0.85);
+    }
+    .method-box h3 { color: #f5f0e8; font-size: 1.15rem; margin-bottom: 12px; }
+
+    /* ANALYSIS BOX */
+    .analysis-box {
+      background: var(--cream); border: 1px solid rgba(42,31,20,0.1);
+      padding: 32px; border-radius: 4px; margin-top: 32px;
+    }
+    .analysis-box h3 { color: var(--terracotta); font-size: 1.15rem; margin-bottom: 10px; }
+
+    /* TEAM */
+    .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 600px; margin: 0 auto 30px; }
+    .team-card {
+      background: var(--cream-dark); border: 1px solid rgba(42,31,20,0.1);
+      padding: 28px; border-radius: 4px; text-align: center;
+    }
+    .team-avatar {
+      width: 56px; height: 56px; border-radius: 50%; background: rgba(200,144,46,0.15);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 14px; color: var(--gold); font-weight: 700; font-size: 1.3rem;
+      font-family: 'Playfair Display', serif;
+    }
+    .team-card p { font-weight: 600; font-size: 1rem; }
+    .group-badge {
+      display: inline-block; background: var(--earth-mid); color: var(--cream);
+      padding: 10px 28px; font-family: monospace; font-weight: 600; letter-spacing: 4px;
+      border-radius: 4px;
+    }
+
+    /* IMAGE */
+    .full-img { width: 100%; border-radius: 4px; box-shadow: 0 8px 30px rgba(0,0,0,0.12); margin-bottom: 32px; }
+
+    /* FOOTER */
+    footer {
+      background: var(--earth-dark); text-align: center; padding: 32px 20px;
+    }
+    footer p { color: rgba(245,240,232,0.4); font-size: 0.85rem; }
+    footer .gold { color: rgba(200,144,46,0.4); font-size: 0.7rem; margin-top: 4px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .grid-2, .grid-3, .team-grid { grid-template-columns: 1fr; }
+      .flex-row { flex-direction: column; }
+      .mini-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <span class="nav-brand">Cultura Africana</span>
+      <div class="nav-links">
+        <a href="#inicio">Inicio</a>
+        <a href="#cultura">Cultura</a>
+        <a href="#mascaras">Máscaras</a>
+        <a href="#arte">Arte</a>
+        <a href="#cine">Cine</a>
+        <a href="#equipo">Equipo</a>
+      </div>
+      <span class="nav-group">BMTV-2C</span>
+    </div>
+  </nav>
+
+  <section class="hero" id="inicio">
+    <div class="hero-content">
+      <p class="hero-tag">Proyecto de Investigación Digital</p>
+      <h1>La Influencia de las <span>Máscaras Africanas</span> en el Arte y el Cine Actual</h1>
+      <p>Un recorrido por la riqueza cultural africana, sus tradiciones artísticas y cómo han transformado la cultura popular moderna.</p>
+      <a href="#cultura" class="btn">EXPLORAR</a>
+    </div>
+  </section>
+
+  <section class="bg-alt" id="cultura">
+    <div class="container">
+      <p class="section-tag">Contexto</p>
+      <h2 class="section-title">La Riqueza de la Cultura Africana</h2>
+
+      <div class="flex-row" style="margin-bottom: 50px;">
+        <div class="col">
+          <img src="https://loremflickr.com/800/800/african,culture/all" alt="Artesanías africanas">
+        </div>
+        <div class="col">
+          <p style="color: var(--text-muted); margin-bottom: 14px;">
+            África es un continente con más de <strong style="color: var(--text);">3,000 grupos étnicos</strong> y una diversidad cultural incomparable. Sus expresiones artísticas — desde la escultura y la cerámica hasta los textiles y la música — han influido profundamente en el arte mundial.
+          </p>
+          <p style="color: var(--text-muted); margin-bottom: 14px;">
+            La tradición oral, las danzas ceremoniales, la artesanía en cuentas y los tejidos como el <strong style="color: var(--text);">kente</strong> de Ghana o los <strong style="color: var(--text);">bogolán</strong> de Mali son solo una muestra de la inmensa creatividad de sus pueblos.
+          </p>
+          <p style="color: var(--text-muted);">
+            Entre todas sus manifestaciones artísticas, las <strong style="color: var(--text);">máscaras</strong> ocupan un lugar central: son objetos sagrados que conectan el mundo visible con el espiritual.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3>Música y Danza</h3>
+          <p style="color: var(--text-muted);">Los ritmos africanos son la raíz del jazz, blues, reggae y hip-hop. Los tambores djembé acompañan ceremonias y celebraciones.</p>
+        </div>
+        <div class="card">
+          <h3>Textiles y Patrones</h3>
+          <p style="color: var(--text-muted);">El kente, el ankara y el bogolán cuentan historias a través de colores y geometrías. Cada patrón tiene un significado propio.</p>
+        </div>
+        <div class="card">
+          <h3>Escultura y Cerámica</h3>
+          <p style="color: var(--text-muted);">Las figuras talladas en madera y las piezas de terracota de Nok (Nigeria) datan de más de 2,500 años de antigüedad.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <p class="section-tag">Investigación</p>
+      <h2 class="section-title">Tema y Metodología</h2>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>Objetivo General</h3>
+          <p style="color: var(--text-muted);">Investigar el significado cultural de las máscaras africanas y su presencia en la cultura popular moderna.</p>
+        </div>
+        <div class="card">
+          <h3>Objetivos Específicos</h3>
+          <ol style="color: var(--text-muted); padding-left: 20px; font-size: 0.9rem;">
+            <li style="margin-bottom: 8px;">Identificar los materiales y significados principales de las máscaras tradicionales.</li>
+            <li>Reconocer cómo estas máscaras han inspirado personajes en películas modernas (como Black Panther).</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="method-box">
+        <h3>Método de Investigación</h3>
+        <p><strong>Técnica:</strong> Análisis de contenido digital y curación de archivos multimedia.</p>
+        <p style="margin-top: 8px;"><strong>Justificación:</strong> Esta técnica es necesaria para recopilar imágenes de alta calidad y datos históricos que se integrarán en una plataforma web, permitiendo organizar la información de manera interactiva para el usuario.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-dark" id="mascaras">
+    <div class="container">
+      <p class="section-tag">Tradición</p>
+      <h2 class="section-title">Las Máscaras Africanas</h2>
+      <p class="section-desc text-muted">Más que objetos decorativos, las máscaras son puentes entre el mundo humano y el espiritual. Talladas en madera, decoradas con marfil, conchas y pigmentos naturales.</p>
+
+      <div class="flex-row" style="margin-bottom: 40px;">
+        <div class="col">
+          <img src="https://loremflickr.com/800/800/african,mask/all" alt="Máscaras africanas en museo">
+        </div>
+        <div class="col">
+          <p class="text-muted" style="margin-bottom: 16px;">Se buscó información en sitios web de museos y archivos de antropología. Se documentaron los tipos de máscaras y se recopilaron recursos visuales para esta página.</p>
+          <div class="mini-grid">
+            <div class="mini-card"><h4>Rituales</h4><p>Ceremonias sagradas y festivales de iniciación</p></div>
+            <div class="mini-card"><h4>Protección</h4><p>Amuletos contra espíritus y energías negativas</p></div>
+            <div class="mini-card"><h4>Ancestrales</h4><p>Honrar y comunicarse con los antepasados</p></div>
+            <div class="mini-card"><h4>Artísticas</h4><p>Expresión estética y narrativa cultural</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card-dark">
+          <h3>Máscara Ritual con Cuernos</h3>
+          <p class="origin">Costa de Marfil — Pueblo Senufo</p>
+          <p>Utilizada en ceremonias Poro, representa la fuerza de los espíritus animales y guía a los jóvenes en su paso a la adultez.</p>
+        </div>
+        <div class="card-dark">
+          <h3>Máscara con Conchas de Cauri</h3>
+          <p class="origin">Nigeria — Pueblo Yoruba</p>
+          <p>Las conchas simbolizan riqueza y conexión con Oshún, deidad del agua y la fertilidad en la religión yoruba.</p>
+        </div>
+        <div class="card-dark">
+          <h3>Máscara Geométrica Ancestral</h3>
+          <p class="origin">R.D. del Congo — Pueblo Kuba</p>
+          <p>Patrones geométricos que narran la genealogía real del clan y se usan en ceremonias funerarias de la realeza.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-alt" id="arte">
+    <div class="container">
+      <p class="section-tag">Legado</p>
+      <h2 class="section-title">Influencia en el Arte Mundial</h2>
+      <p class="section-desc">La estética africana ha sido fuente de inspiración para movimientos artísticos que transformaron la historia del arte.</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>El Cubismo (1907–1920)</h3>
+          <p style="color: var(--text-muted);">Pablo Picasso y Georges Braque descubrieron las máscaras africanas en el Museo de Etnografía de París. Las formas angulares y la abstracción geométrica inspiraron directamente obras como <em>Las señoritas de Aviñón</em>.</p>
+        </div>
+        <div class="card">
+          <h3>Arte Contemporáneo</h3>
+          <p style="color: var(--text-muted);">Artistas como El Anatsui (Ghana), Wangechi Mutu (Kenia) y Yinka Shonibare (Nigeria) fusionan técnicas tradicionales africanas con lenguajes contemporáneos, exhibiendo en museos de todo el mundo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cine">
+    <div class="container">
+      <p class="section-tag">Cultura Popular</p>
+      <h2 class="section-title">Del Arte Tradicional al Cine</h2>
+      <p class="section-desc">Comparativa visual entre el arte tradicional africano y su influencia en el diseño cinematográfico contemporáneo.</p>
+
+      <img class="full-img" src="https://loremflickr.com/1200/600/african,art/all" alt="Arte africano contemporáneo">
+
+      <div class="analysis-box">
+        <h3>Análisis y Conclusión</h3>
+        <p style="color: var(--text-muted);">
+          Las máscaras africanas son objetos sagrados de conexión ancestral. Su estética geométrica no solo influyó en el <strong style="color: var(--text);">cubismo</strong> de Picasso y Braque, sino que es la base visual para crear mundos futuristas en el cine de ciencia ficción actual, como se evidencia en <strong style="color: var(--text);">Black Panther</strong> (2018), donde el diseño de Wakanda — su arquitectura, vestuario y tecnología — se nutre directamente de la iconografía, textiles y patrones tradicionales de diversas culturas africanas.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-alt" id="equipo">
+    <div class="container" style="text-align: center;">
+      <p class="section-tag">Integrantes</p>
+      <h2 class="section-title">Equipo de Investigación</h2>
+
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar">A</div>
+          <p>Alonso Trejo Lesly Fernanda</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">V</div>
+          <p>Vázquez Jiménez Gabriela Isabel</p>
+        </div>
+      </div>
+
+      <div class="group-badge">Grupo: BMTV-2C</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Proyecto de Investigación Digital — Cultura y Máscaras Africanas © 2026</p>
+    <p class="gold">BMTV-2C</p>
+  </footer>
+
+</body>
+</html>
